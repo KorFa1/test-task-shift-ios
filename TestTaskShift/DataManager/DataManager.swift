@@ -11,17 +11,22 @@ protocol DataManagerRegistrationModuleModelInput: AnyObject {
     
 }
 
+
 protocol DataManagerMainModuleModelInput: AnyObject {
     
 }
 
+
 final class DataManager {
-    
+    weak var registrationModuleModel: RegistrationModuleModelDataManagerInput?
+    weak var mainModuleModel: MainModuleModelDataManagerInput?
 }
+
 
 extension DataManager: DataManagerRegistrationModuleModelInput {
     
 }
+
 
 extension DataManager: DataManagerMainModuleModelInput {
     

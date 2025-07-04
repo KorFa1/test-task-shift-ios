@@ -12,7 +12,7 @@ protocol ValidationManagerRegistrationModuleModelInput: AnyObject {
 }
 
 final class ValidationManager {
-    
+    weak var registrationModuleModel: RegistrationModuleModelValidationManagerInput?
 }
 
 extension ValidationManager: ValidationManagerRegistrationModuleModelInput {

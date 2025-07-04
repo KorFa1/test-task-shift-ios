@@ -16,7 +16,15 @@ protocol RegistrationModulePresenterViewInput: AnyObject {
 }
 
 final class RegistrationModulePresenter {
+    var model: RegistrationModuleModelPresenterInput?
+    weak var view: RegistrationModuleViewPresenterInput?
+    var moduleManager: ModuleManagerRegistrationModulePresenterInput?
     
+    init(model: RegistrationModuleModelPresenterInput, view: RegistrationModuleViewPresenterInput, moduleManager: ModuleManagerRegistrationModulePresenterInput) {
+        self.model = model
+        self.view = view
+        self.moduleManager = moduleManager
+    }
 }
     
 extension RegistrationModulePresenter: RegistrationModulePresenterModelInput {

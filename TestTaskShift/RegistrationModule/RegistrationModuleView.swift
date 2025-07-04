@@ -12,7 +12,12 @@ protocol RegistrationModuleViewPresenterInput: AnyObject {
 }
 
 final class RegistrationModuleView: UIViewController {
+    var presenter: RegistrationModulePresenterViewInput?
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = .systemRed
+    }
 }
 
 extension RegistrationModuleView: RegistrationModuleViewPresenterInput {

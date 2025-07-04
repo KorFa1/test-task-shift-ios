@@ -20,7 +20,9 @@ protocol RegistrationModuleModelDataManagerInput: AnyObject {
 }
 
 final class RegistrationModuleModel {
-    
+    weak var presenter: RegistrationModulePresenterModelInput?
+    var validationManager: ValidationManagerRegistrationModuleModelInput?
+    var dataManager: DataManagerRegistrationModuleModelInput?
 }
 
 extension RegistrationModuleModel: RegistrationModuleModelPresenterInput {
