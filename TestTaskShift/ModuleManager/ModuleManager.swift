@@ -25,7 +25,7 @@ final class ModuleManager {
 extension ModuleManager: ModuleManagerSceneDelegateInput {
     
     func createRegistrationModule() -> UIViewController {
-        let registrationModuleModel: RegistrationModuleModelPresenterInput & RegistrationModuleModelValidationManagerInput & RegistrationModuleModelDataManagerInput = RegistrationModuleModel()
+        let registrationModuleModel: RegistrationModuleModelPresenterInput & RegistrationModuleModelDataManagerInput = RegistrationModuleModel()
         let registrationModuleView: RegistrationModuleViewPresenterInput = RegistrationModuleView()
         let validationManager: ValidationManagerRegistrationModuleModelInput = ValidationManager()
         let dataManager: DataManagerRegistrationModuleModelInput & DataManagerMainModuleModelInput = DataManager()
@@ -37,7 +37,6 @@ extension ModuleManager: ModuleManagerSceneDelegateInput {
         
         (registrationModuleView as! RegistrationModuleView).presenter = registrationModulePresenter
         
-        (validationManager as! ValidationManager).registrationModuleModel = registrationModuleModel
         (dataManager as! DataManager).registrationModuleModel = registrationModuleModel
         
         return registrationModuleView as! UIViewController

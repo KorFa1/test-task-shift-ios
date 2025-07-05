@@ -18,6 +18,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: windowScene)
                 
         let rootViewController = moduleManager.createRegistrationModule()
+        
         let navigation = UINavigationController(rootViewController: rootViewController)
                 
         window?.rootViewController = navigation

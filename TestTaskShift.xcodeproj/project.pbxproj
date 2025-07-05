@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		ED212B342E1924F200036381 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = ED212B332E1924F200036381 /* SnapKit */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		EDD93B402E17F4AA00F86183 /* TestTaskShift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestTaskShift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -36,6 +40,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ED212B342E1924F200036381 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +83,7 @@
 			);
 			name = TestTaskShift;
 			packageProductDependencies = (
+				ED212B332E1924F200036381 /* SnapKit */,
 			);
 			productName = TestTaskShift;
 			productReference = EDD93B402E17F4AA00F86183 /* TestTaskShift.app */;
@@ -107,6 +113,9 @@
 			);
 			mainGroup = EDD93B372E17F4AA00F86183;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				ED212B322E1924F200036381 /* XCRemoteSwiftPackageReference "SnapKit" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = EDD93B412E17F4AA00F86183 /* Products */;
 			projectDirPath = "";
@@ -158,7 +167,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.KorFa.TestTaskShift;
+				PRODUCT_BUNDLE_IDENTIFIER = com.KorFa1.TestTaskShift;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -190,7 +199,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.KorFa.TestTaskShift;
+				PRODUCT_BUNDLE_IDENTIFIER = com.KorFa1.TestTaskShift;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -345,6 +354,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		ED212B322E1924F200036381 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.7.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		ED212B332E1924F200036381 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = ED212B322E1924F200036381 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = EDD93B382E17F4AA00F86183 /* Project object */;
 }

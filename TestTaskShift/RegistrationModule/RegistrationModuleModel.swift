@@ -8,11 +8,7 @@
 import Foundation
 
 protocol RegistrationModuleModelPresenterInput: AnyObject {
-    
-}
-
-protocol RegistrationModuleModelValidationManagerInput: AnyObject {
-    
+    func requestRegistrationValidation(name: String, surname: String, date: String, password: String, confirmPassword: String)
 }
 
 protocol RegistrationModuleModelDataManagerInput: AnyObject {
@@ -26,11 +22,11 @@ final class RegistrationModuleModel {
 }
 
 extension RegistrationModuleModel: RegistrationModuleModelPresenterInput {
-    
-}
-
-extension RegistrationModuleModel: RegistrationModuleModelValidationManagerInput {
-    
+    func requestRegistrationValidation(name: String, surname: String, date: String, password: String, confirmPassword: String) {
+        validationManager?.validateRegistrationFields(name: name, surname: surname, date: date, password: password, confirmPassword: confirmPassword) { [weak self] validationErrors in
+            self?.presenter?.didValidateRegistration(validationErrors: validationErrors)
+        }
+    }
 }
 
 extension RegistrationModuleModel: RegistrationModuleModelDataManagerInput {
