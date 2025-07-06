@@ -11,9 +11,11 @@ protocol ValidationManagerRegistrationModuleModelInput: AnyObject {
     func validateRegistrationFields(name: String, surname: String, date: String, password: String, confirmPassword: String, completion: @escaping ([ValidationError]) -> Void)
 }
 
+
 final class ValidationManager {
 
 }
+
 
 extension ValidationManager: ValidationManagerRegistrationModuleModelInput {
     func validateRegistrationFields(name: String, surname: String, date: String, password: String, confirmPassword: String, completion: @escaping ([ValidationError]) -> Void) {
@@ -30,7 +32,7 @@ extension ValidationManager: ValidationManagerRegistrationModuleModelInput {
             errors.append(.invalidSurname)
         }
         
-// MARK: - подумать над датой
+// MARK: - Еще подумать над реализацией
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd/MM/yyyy"
         let userDate = dateFormatter.date(from: date)!

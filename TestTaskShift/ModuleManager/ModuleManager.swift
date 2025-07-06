@@ -18,17 +18,15 @@ protocol ModuleManagerRegistrationModulePresenterInput: AnyObject {
 
 
 final class ModuleManager {
-    
+    private let dataManager: DataManagerRegistrationModuleModelInput & DataManagerMainModuleModelInput = DataManager()
 }
 
 
 extension ModuleManager: ModuleManagerSceneDelegateInput {
-    
     func createRegistrationModule() -> UIViewController {
         let registrationModuleModel: RegistrationModuleModelPresenterInput & RegistrationModuleModelDataManagerInput = RegistrationModuleModel()
         let registrationModuleView: RegistrationModuleViewPresenterInput = RegistrationModuleView()
         let validationManager: ValidationManagerRegistrationModuleModelInput = ValidationManager()
-        let dataManager: DataManagerRegistrationModuleModelInput & DataManagerMainModuleModelInput = DataManager()
         let registrationModulePresenter: RegistrationModulePresenterModelInput & RegistrationModulePresenterViewInput = RegistrationModulePresenter(model: registrationModuleModel, view: registrationModuleView, moduleManager: self as ModuleManagerRegistrationModulePresenterInput)
         
         (registrationModuleModel as! RegistrationModuleModel).presenter = registrationModulePresenter
@@ -45,8 +43,21 @@ extension ModuleManager: ModuleManagerSceneDelegateInput {
     
 
 extension ModuleManager: ModuleManagerRegistrationModulePresenterInput {
-    
     func createMainModule() -> UIViewController {
-        return UIViewController()
+        let networkManager: NetworkManagerMainModuleModelInput = NetworkManager()
+        let mainModuleModel: MainModuleModelPresenterInput & MainModuleModelDataManagerInput & MainModuleModelNetworkManagerInput = MainModuleModel(networkManager: networkManager)
+        let mainModuleView: MainModuleViewPresenterInput = MainModuleView()
+        let mainModulePresenter: MainModulePresenterModelInput & MainModulePresenterViewInput = MainModulePresenter(model: mainModuleModel, view: mainModuleView)
+        
+        (mainModuleModel as! MainModuleModel).presenter = mainModulePresenter
+        (mainModuleModel as! MainModuleModel).networkManager = networkManager
+        (mainModuleModel as! MainModuleModel).dataManager = dataManager
+        
+        (mainModuleView as! MainModuleView).presenter = mainModulePresenter
+        
+        (dataManager as! DataManager).mainModuleModel = mainModuleModel
+        (networkManager as! NetworkManager).mainModuleModel = mainModuleModel
+        
+        return mainModuleView as! UIViewController
     }
 }

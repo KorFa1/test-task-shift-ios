@@ -8,13 +8,13 @@
 import UIKit
 import SnapKit
 
-
 protocol RegistrationModuleViewPresenterInput: AnyObject {
     func showNameError(error: String)
     func showSurnameError(error: String)
     func showDateError(error: String)
     func showPasswordError(error: String)
     func showConfirmPasswordError(error: String)
+    func navigateToMainModule(_ viewController: UIViewController)
 }
 
 // MARK: - Constants
@@ -30,10 +30,10 @@ private enum Constants {
     static let buttonBottomOffset: CGFloat = 32
     static let errorLabelFontSize: CGFloat = 10
     static let navTitle = "Регистрация"
-    static let namePlaceholder = "Иван"
-    static let surnamePlaceholder = "Иванов"
-    static let datePlaceholder = "20/20/2020"
-    static let passwordPlaceholder = "Пароль"
+    static let namePlaceholder = "Введите имя"
+    static let surnamePlaceholder = "Введите фамилию"
+    static let datePlaceholder = "ДД/ММ/ГГГГ"
+    static let passwordPlaceholder = "Введите пароль"
     static let confirmPasswordPlaceholder = "Подтвердите пароль"
     static let registerButtonTitle = "Зарегистрироваться"
 }
@@ -70,6 +70,14 @@ final class RegistrationModuleView: UIViewController {
         setupUI()
         setupConstraints()
         setupKeyboardNotifications()
+        
+        presenter?.RegistrationModuleViewDidLoad()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: false)
+        tabBarController?.tabBar.isHidden = false
     }
     
     deinit {
@@ -381,7 +389,7 @@ private extension RegistrationModuleView {
     }
 
     @objc func registrationButtonTapped() {
-        presenter?.didTapRegistrationButton(name: nameTextField.text!, surname: surnameTextField.text!, date: dateTextField.text!, passowrd: passwordTextField.text!, confirmPassowrd: confirmPasswordTextField.text!)
+        presenter?.didTapRegistrationButton(name: nameTextField.text!, surname: surnameTextField.text!, date: dateTextField.text!, password: passwordTextField.text!, confirmPassword: confirmPasswordTextField.text!)
     }
 }
 
@@ -451,5 +459,9 @@ extension RegistrationModuleView: RegistrationModuleViewPresenterInput {
     
     func showConfirmPasswordError(error: String) {
         confirmPasswordErrorLabel.text = error
+    }
+    
+    func navigateToMainModule(_ viewController: UIViewController) {
+        navigationController?.pushViewController(viewController, animated: true)
     }
 }
