@@ -11,35 +11,33 @@ import SnapKit
 protocol RegistrationModuleViewPresenterInput: AnyObject {
     func showNameError(error: String)
     func showSurnameError(error: String)
-    func showDateError(error: String)
     func showPasswordError(error: String)
     func showConfirmPasswordError(error: String)
     func navigateToMainModule(_ viewController: UIViewController)
 }
 
-// MARK: - Constants
-private enum Constants {
-    static let fieldTopOffset: CGFloat = 32
-    static let fieldSideInset: CGFloat = 24
-    static let fieldHeight: CGFloat = 48
-    static let errorLabelTopOffset: CGFloat = 2
-    static let errorLabelHeight: CGFloat = 16
-    static let fieldVerticalSpacing: CGFloat = 20
-    static let buttonTopOffset: CGFloat = 40
-    static let buttonHeight: CGFloat = 52
-    static let buttonBottomOffset: CGFloat = 32
-    static let errorLabelFontSize: CGFloat = 10
-    static let navTitle = "Регистрация"
-    static let namePlaceholder = "Введите имя"
-    static let surnamePlaceholder = "Введите фамилию"
-    static let datePlaceholder = "ДД/ММ/ГГГГ"
-    static let passwordPlaceholder = "Введите пароль"
-    static let confirmPasswordPlaceholder = "Подтвердите пароль"
-    static let registerButtonTitle = "Зарегистрироваться"
-}
-
 // MARK: - RegistrationModuleView
 final class RegistrationModuleView: UIViewController {
+    // MARK: - Constants
+    private enum Constants {
+        static let fieldTopOffset: CGFloat = 32
+        static let fieldSideInset: CGFloat = 24
+        static let fieldHeight: CGFloat = 48
+        static let errorLabelTopOffset: CGFloat = 2
+        static let errorLabelHeight: CGFloat = 16
+        static let fieldVerticalSpacing: CGFloat = 40
+        static let buttonTopOffset: CGFloat = 40
+        static let buttonHeight: CGFloat = 52
+        static let buttonBottomOffset: CGFloat = 32
+        static let errorLabelFontSize: CGFloat = 10
+        static let navTitle = "Регистрация"
+        static let namePlaceholder = "Введите имя"
+        static let surnamePlaceholder = "Введите фамилию"
+        static let datePlaceholder = "ДД/ММ/ГГГГ"
+        static let passwordPlaceholder = "Введите пароль"
+        static let confirmPasswordPlaceholder = "Подтвердите пароль"
+        static let registerButtonTitle = "Зарегистрироваться"
+    }
     
 // MARK: - Properties
     var presenter: RegistrationModulePresenterViewInput?
@@ -59,7 +57,6 @@ final class RegistrationModuleView: UIViewController {
     
     private let nameErrorLabel = UILabel()
     private let surnameErrorLabel = UILabel()
-    private let dateErrorLabel = UILabel()
     private let passwordErrorLabel = UILabel()
     private let confirmPasswordErrorLabel = UILabel()
     
@@ -71,7 +68,7 @@ final class RegistrationModuleView: UIViewController {
         setupConstraints()
         setupKeyboardNotifications()
         
-        presenter?.RegistrationModuleViewDidLoad()
+        presenter?.registrationModuleViewDidLoad()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -80,6 +77,7 @@ final class RegistrationModuleView: UIViewController {
         tabBarController?.tabBar.isHidden = false
     }
     
+    // MARK: - Init
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
@@ -89,6 +87,7 @@ final class RegistrationModuleView: UIViewController {
 private extension RegistrationModuleView {
     func setupUI() {
         setupBaseUI()
+        createScrillView()
         createNameTextField()
         createSurnameTextField()
         createDateTextField()
@@ -100,6 +99,9 @@ private extension RegistrationModuleView {
     
     func setupBaseUI() {
         view.backgroundColor = .systemBackground
+    }
+    
+    func createScrillView() {
         scrollView.showsVerticalScrollIndicator = false
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         tapGesture.cancelsTouchesInView = false
@@ -135,7 +137,14 @@ private extension RegistrationModuleView {
         dateTextField.inputView = datePicker
         datePicker.datePickerMode = .date
         datePicker.preferredDatePickerStyle = .wheels
-        datePicker.maximumDate = Date()
+        
+        let calendar = Calendar.current
+        let now = Date()
+        if let minDate = calendar.date(byAdding: .year, value: -130, to: now),
+           let maxDate = calendar.date(byAdding: .year, value: -12, to: now) {
+            datePicker.minimumDate = minDate
+            datePicker.maximumDate = maxDate
+        }
         datePicker.addTarget(self, action: #selector(dateChanged), for: .valueChanged)
         contentView.addSubview(dateTextField)
     }
@@ -182,11 +191,6 @@ private extension RegistrationModuleView {
         surnameErrorLabel.text = ""
         contentView.addSubview(surnameErrorLabel)
         
-        dateErrorLabel.font = .systemFont(ofSize: Constants.errorLabelFontSize)
-        dateErrorLabel.textColor = .systemRed
-        dateErrorLabel.text = ""
-        contentView.addSubview(dateErrorLabel)
-        
         passwordErrorLabel.font = .systemFont(ofSize: Constants.errorLabelFontSize)
         passwordErrorLabel.textColor = .systemRed
         passwordErrorLabel.text = ""
@@ -209,7 +213,6 @@ private extension RegistrationModuleView {
         setupSurnameTextFieldConstraints()
         setupSurnameErrorLabelConstraints()
         setupDateTextFieldConstraints()
-        setupDateErrorLabelConstraints()
         setupPasswordTextFieldConstraints()
         setupPasswordErrorLabelConstraints()
         setupConfirmPasswordTextFieldConstraints()
@@ -249,7 +252,7 @@ private extension RegistrationModuleView {
     
     func setupSurnameTextFieldConstraints() {
         surnameTextField.snp.makeConstraints { make in
-            make.top.equalTo(nameErrorLabel.snp.bottom).offset(Constants.fieldVerticalSpacing)
+            make.top.equalTo(nameTextField.snp.bottom).offset(Constants.fieldVerticalSpacing)
             make.left.right.equalToSuperview().inset(Constants.fieldSideInset)
             make.height.equalTo(Constants.fieldHeight)
         }
@@ -265,23 +268,15 @@ private extension RegistrationModuleView {
     
     func setupDateTextFieldConstraints() {
         dateTextField.snp.makeConstraints { make in
-            make.top.equalTo(surnameErrorLabel.snp.bottom).offset(Constants.fieldVerticalSpacing)
+            make.top.equalTo(surnameTextField.snp.bottom).offset(Constants.fieldVerticalSpacing)
             make.left.right.equalToSuperview().inset(Constants.fieldSideInset)
             make.height.equalTo(Constants.fieldHeight)
         }
     }
     
-    func setupDateErrorLabelConstraints() {
-        dateErrorLabel.snp.makeConstraints { make in
-            make.top.equalTo(dateTextField.snp.bottom).offset(Constants.errorLabelTopOffset)
-            make.left.right.equalTo(dateTextField)
-            make.height.equalTo(Constants.errorLabelHeight)
-        }
-    }
-    
     func setupPasswordTextFieldConstraints() {
         passwordTextField.snp.makeConstraints { make in
-            make.top.equalTo(dateErrorLabel.snp.bottom).offset(Constants.fieldVerticalSpacing)
+            make.top.equalTo(dateTextField.snp.bottom).offset(Constants.fieldVerticalSpacing)
             make.left.right.equalToSuperview().inset(Constants.fieldSideInset)
             make.height.equalTo(Constants.fieldHeight)
         }
@@ -297,7 +292,7 @@ private extension RegistrationModuleView {
     
     func setupConfirmPasswordTextFieldConstraints() {
         confirmPasswordTextField.snp.makeConstraints { make in
-            make.top.equalTo(passwordErrorLabel.snp.bottom).offset(Constants.fieldVerticalSpacing)
+            make.top.equalTo(passwordTextField.snp.bottom).offset(Constants.fieldVerticalSpacing)
             make.left.right.equalToSuperview().inset(Constants.fieldSideInset)
             make.height.equalTo(Constants.fieldHeight)
         }
@@ -447,10 +442,6 @@ extension RegistrationModuleView: RegistrationModuleViewPresenterInput {
     
     func showSurnameError(error: String) {
         surnameErrorLabel.text = error
-    }
-    
-    func showDateError(error: String) {
-        dateErrorLabel.text = error
     }
     
     func showPasswordError(error: String) {

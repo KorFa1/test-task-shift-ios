@@ -10,8 +10,6 @@ import Foundation
 enum ValidationError {
     case invalidName
     case invalidSurname
-    case underage
-    case overage
     case passwordTooShort
     case passwordNoNumber
     case passwordNoLetter

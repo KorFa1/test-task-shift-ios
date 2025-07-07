@@ -8,12 +8,14 @@
 import Foundation
 import Network
 
+// MARK: - Protocols
 protocol NetworkManagerMainModuleModelInput: AnyObject {
     func fetchDataFromServer(completion: @escaping (Result<Books, NetworkError>) -> Void)
 }
 
-
+// MARK: - NetworkManager
 final class NetworkManager {
+    // MARK: - Properties
     weak var mainModuleModel: MainModuleModelNetworkManagerInput?
     private let urlString = "https://fakerapi.it/api/v1/books"
     private let monitor = NWPathMonitor()
@@ -21,6 +23,7 @@ final class NetworkManager {
     private var isConnected: Bool = true
     private var pendingRequest: (() -> Void)?
     
+    // MARK: - Init
     init() {
         monitor.pathUpdateHandler = { [weak self] path in
             self?.isConnected = path.status == .satisfied
@@ -31,14 +34,21 @@ final class NetworkManager {
         monitor.start(queue: queue)
     }
     
-    private func performPendingRequest() {
+    deinit {
+        monitor.cancel()
+    }
+}
+
+// MARK: - Private Methods
+private extension NetworkManager {
+    func performPendingRequest() {
         if let request = pendingRequest {
             pendingRequest = nil
             request()
         }
     }
     
-    private func performRequestAndSendToModel() {
+    func performRequestAndSendToModel() {
         guard let url = URL(string: urlString) else {
             DispatchQueue.main.async {
                 self.mainModuleModel?.didReceiveDataAfterReconnect(result: .failure(.internalError))
@@ -85,11 +95,11 @@ final class NetworkManager {
                     self?.mainModuleModel?.didReceiveDataAfterReconnect(result: .failure(.internalError))
                 }
             }
-        }
-        task.resume()
+        }.resume()
     }
 }
 
+// MARK: - NetworkManagerMainModuleModelInput
 extension NetworkManager: NetworkManagerMainModuleModelInput {
     func fetchDataFromServer(completion: @escaping (Result<Books, NetworkError>) -> Void) {
         if !isConnected {
@@ -142,7 +152,6 @@ extension NetworkManager: NetworkManagerMainModuleModelInput {
                     completion(.failure(.internalError))
                 }
             }
-        }
-        task.resume()
+        }.resume()
     }
 }

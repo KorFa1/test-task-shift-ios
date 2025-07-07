@@ -10,7 +10,18 @@
 		ED212B342E1924F200036381 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = ED212B332E1924F200036381 /* SnapKit */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		ED8163482E1C25DD00420071 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EDD93B382E17F4AA00F86183 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EDD93B3F2E17F4AA00F86183;
+			remoteInfo = TestTaskShift;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		ED8163442E1C25DD00420071 /* TestTaskShiftTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TestTaskShiftTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EDD93B402E17F4AA00F86183 /* TestTaskShift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestTaskShift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -25,6 +36,11 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		ED8163452E1C25DD00420071 /* UnitTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = UnitTests;
+			sourceTree = "<group>";
+		};
 		EDD93B422E17F4AA00F86183 /* TestTaskShift */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
@@ -36,6 +52,13 @@
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		ED8163412E1C25DD00420071 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		EDD93B3D2E17F4AA00F86183 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -51,6 +74,7 @@
 			isa = PBXGroup;
 			children = (
 				EDD93B422E17F4AA00F86183 /* TestTaskShift */,
+				ED8163452E1C25DD00420071 /* UnitTests */,
 				EDD93B412E17F4AA00F86183 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -59,6 +83,7 @@
 			isa = PBXGroup;
 			children = (
 				EDD93B402E17F4AA00F86183 /* TestTaskShift.app */,
+				ED8163442E1C25DD00420071 /* TestTaskShiftTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -66,6 +91,29 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		ED8163432E1C25DD00420071 /* TestTaskShiftTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = ED81634A2E1C25DD00420071 /* Build configuration list for PBXNativeTarget "TestTaskShiftTests" */;
+			buildPhases = (
+				ED8163402E1C25DD00420071 /* Sources */,
+				ED8163412E1C25DD00420071 /* Frameworks */,
+				ED8163422E1C25DD00420071 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				ED8163492E1C25DD00420071 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				ED8163452E1C25DD00420071 /* UnitTests */,
+			);
+			name = TestTaskShiftTests;
+			packageProductDependencies = (
+			);
+			productName = TestTaskShiftTests;
+			productReference = ED8163442E1C25DD00420071 /* TestTaskShiftTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		EDD93B3F2E17F4AA00F86183 /* TestTaskShift */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = EDD93B532E17F4AA00F86183 /* Build configuration list for PBXNativeTarget "TestTaskShift" */;
@@ -99,6 +147,10 @@
 				LastSwiftUpdateCheck = 1640;
 				LastUpgradeCheck = 1640;
 				TargetAttributes = {
+					ED8163432E1C25DD00420071 = {
+						CreatedOnToolsVersion = 16.4;
+						TestTargetID = EDD93B3F2E17F4AA00F86183;
+					};
 					EDD93B3F2E17F4AA00F86183 = {
 						CreatedOnToolsVersion = 16.4;
 					};
@@ -122,11 +174,19 @@
 			projectRoot = "";
 			targets = (
 				EDD93B3F2E17F4AA00F86183 /* TestTaskShift */,
+				ED8163432E1C25DD00420071 /* TestTaskShiftTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		ED8163422E1C25DD00420071 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		EDD93B3E2E17F4AA00F86183 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -137,6 +197,13 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		ED8163402E1C25DD00420071 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		EDD93B3C2E17F4AA00F86183 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -146,7 +213,61 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		ED8163492E1C25DD00420071 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EDD93B3F2E17F4AA00F86183 /* TestTaskShift */;
+			targetProxy = ED8163482E1C25DD00420071 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		ED81634B2E1C25DD00420071 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = V3LDJGM5SK;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.KorFa.TestTaskShiftTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TestTaskShift.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/TestTaskShift";
+			};
+			name = Debug;
+		};
+		ED81634C2E1C25DD00420071 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = V3LDJGM5SK;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.KorFa.TestTaskShiftTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TestTaskShift.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/TestTaskShift";
+			};
+			name = Release;
+		};
 		EDD93B542E17F4AA00F86183 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -335,6 +456,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		ED81634A2E1C25DD00420071 /* Build configuration list for PBXNativeTarget "TestTaskShiftTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ED81634B2E1C25DD00420071 /* Debug */,
+				ED81634C2E1C25DD00420071 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		EDD93B3B2E17F4AA00F86183 /* Build configuration list for PBXProject "TestTaskShift" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

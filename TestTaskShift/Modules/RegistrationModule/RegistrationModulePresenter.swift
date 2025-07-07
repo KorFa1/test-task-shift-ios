@@ -7,23 +7,25 @@
 
 import Foundation
 
+// MARK: - Protocols
 protocol RegistrationModulePresenterModelInput: AnyObject {
     func didValidateRegistration(validationErrors: [ValidationError])
     func didReceiveUserSession(userName: String?)
 }
 
-
 protocol RegistrationModulePresenterViewInput: AnyObject {
     func didTapRegistrationButton(name: String, surname: String, date: String, password: String, confirmPassword: String)
-    func RegistrationModuleViewDidLoad()
+    func registrationModuleViewDidLoad()
 }
 
-
+// MARK: - RegistrationModulePresenter
 final class RegistrationModulePresenter {
+    // MARK: - Properties
     var model: RegistrationModuleModelPresenterInput?
     weak var view: RegistrationModuleViewPresenterInput?
     var moduleManager: ModuleManagerRegistrationModulePresenterInput?
     
+    // MARK: - Init
     init(model: RegistrationModuleModelPresenterInput, view: RegistrationModuleViewPresenterInput, moduleManager: ModuleManagerRegistrationModulePresenterInput) {
         self.model = model
         self.view = view
@@ -31,12 +33,11 @@ final class RegistrationModulePresenter {
     }
 }
    
-
+// MARK: - RegistrationModulePresenterModelInput
 extension RegistrationModulePresenter: RegistrationModulePresenterModelInput {
     func didValidateRegistration(validationErrors: [ValidationError]) {
         view?.showNameError(error: "")
         view?.showSurnameError(error: "")
-        view?.showDateError(error: "")
         view?.showPasswordError(error: "")
         view?.showConfirmPasswordError(error: "")
         
@@ -55,10 +56,6 @@ extension RegistrationModulePresenter: RegistrationModulePresenterModelInput {
                 view?.showNameError(error: "Некорректное имя")
             case .invalidSurname:
                 view?.showSurnameError(error: "Некорректная фамилия")
-            case .underage:
-                view?.showDateError(error: "Вам должно быть не менее 12 лет")
-            case .overage:
-                view?.showDateError(error: "Вам должно быть не более 130 лет")
             case .passwordTooShort:
                 view?.showPasswordError(error: "Пароль слишком короткий")
             case .passwordNoNumber:
@@ -78,13 +75,13 @@ extension RegistrationModulePresenter: RegistrationModulePresenterModelInput {
     }
 }
 
-
+// MARK: - RegistrationModulePresenterViewInput
 extension RegistrationModulePresenter: RegistrationModulePresenterViewInput {
     func didTapRegistrationButton(name: String, surname: String, date: String, password: String, confirmPassword: String) {
         model?.requestRegistrationValidation(name: name, surname: surname, date: date, password: password, confirmPassword: confirmPassword)
     }
     
-    func RegistrationModuleViewDidLoad() {
+    func registrationModuleViewDidLoad() {
         model?.checkUserSession()
     }
 }

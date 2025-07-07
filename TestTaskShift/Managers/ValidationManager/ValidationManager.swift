@@ -7,16 +7,17 @@
 
 import Foundation
 
+// MARK: - Protocols
 protocol ValidationManagerRegistrationModuleModelInput: AnyObject {
     func validateRegistrationFields(name: String, surname: String, date: String, password: String, confirmPassword: String, completion: @escaping ([ValidationError]) -> Void)
 }
 
-
+// MARK: - ValidationManager
 final class ValidationManager {
 
 }
 
-
+// MARK: - ValidationManagerRegistrationModuleModelInput
 extension ValidationManager: ValidationManagerRegistrationModuleModelInput {
     func validateRegistrationFields(name: String, surname: String, date: String, password: String, confirmPassword: String, completion: @escaping ([ValidationError]) -> Void) {
         var errors: [ValidationError] = []
@@ -30,20 +31,6 @@ extension ValidationManager: ValidationManagerRegistrationModuleModelInput {
 
         if trimmedSurname.count < 2 || !trimmedSurname.allSatisfy({ $0.isLetter }) {
             errors.append(.invalidSurname)
-        }
-        
-// MARK: - Еще подумать над реализацией
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd/MM/yyyy"
-        let userDate = dateFormatter.date(from: date)!
-        let now = Date()
-        let calendar = Calendar.current
-        let ageComponents = calendar.dateComponents([.year], from: userDate, to: now)
-        let age = ageComponents.year ?? 0
-        if age < 12 {
-            errors.append(.underage)
-        } else if age > 130 {
-            errors.append(.overage)
         }
         
         if password.rangeOfCharacter(from: .decimalDigits) == nil {

@@ -7,23 +7,27 @@
 
 import Foundation
 
+// MARK: - Protocols
 protocol MainModulePresenterModelInput: AnyObject {
-    func didReceiveBooks(_ books: [Book])
+    func didReceiveBooks()
     func didReceiveError(_ error: NetworkError)
     func didReceiveUserName(_ userName: String)
 }
 
-
 protocol MainModulePresenterViewInput: AnyObject {
     func helloButtonTapped()
     func exitButtonTapped()
+    func getNumberOfBooks() -> Int
+    func getBook(at index: Int) -> Book
 }
 
-
+// MARK: - MainModulePresenter
 final class MainModulePresenter {
+    // MARK: - Properties
     var model: MainModuleModelPresenterInput?
     weak var view: MainModuleViewPresenterInput?
     
+    // MARK: - Init
     init(model: MainModuleModelPresenterInput, view: MainModuleViewPresenterInput) {
         self.model = model
         self.view = view
@@ -31,10 +35,10 @@ final class MainModulePresenter {
     }
 }
 
-
+// MARK: - MainModulePresenterModelInput
 extension MainModulePresenter: MainModulePresenterModelInput {
-    func didReceiveBooks(_ books: [Book]) {
-// MARK: - Доделать метод
+    func didReceiveBooks() {
+        view?.showBooks()
     }
     
     func didReceiveError(_ error: NetworkError) {
@@ -55,7 +59,7 @@ extension MainModulePresenter: MainModulePresenterModelInput {
     }
 }
 
-
+// MARK: - MainModulePresenterViewInput
 extension MainModulePresenter: MainModulePresenterViewInput {
     func helloButtonTapped() {
         model?.fetchUserName()
@@ -63,5 +67,14 @@ extension MainModulePresenter: MainModulePresenterViewInput {
     
     func exitButtonTapped() {
         model?.deleteUserName()
+        view?.navigateToRegistrationModule()
+    }
+    
+    func getNumberOfBooks() -> Int {
+        return model?.fetchNumberOfBooks() ?? 0
+    }
+    
+    func getBook(at index: Int) -> Book {
+        model?.fetchBook(at: index) ?? Book(title: "None", author: "None")
     }
 }
