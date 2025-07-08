@@ -37,4 +37,4 @@
 
 ## Демонстрация
 
-https://github.com/user-attachments/assets/defef377-b510-4d80-8c5a-40a5fd58e277
+https://github.com/user-attachments/assets/79e8706d-f0be-4703-aade-52f73b4bbd83
